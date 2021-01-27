@@ -60,5 +60,17 @@ class Sensei_Lesson_Blocks extends Sensei_Blocks_Initializer {
 		new Sensei_Complete_Lesson_Block();
 		new Sensei_Reset_Lesson_Block();
 		new Sensei_View_Quiz_Block();
+
+		if ( Sensei()->lesson->has_sensei_blocks() ) {
+			$this->remove_block_related_content();
+		}
+	}
+
+	/**
+	 * Helper method to remove functionality which is provided by blocks.
+	 */
+	private function remove_block_related_content() {
+		// Remove contact teacher button.
+		remove_action( 'sensei_single_lesson_content_inside_before', [ Sensei()->post_types->messages, 'send_message_link' ], 30 );
 	}
 }
