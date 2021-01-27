@@ -33,6 +33,11 @@ class Sensei_Block_Contact_Teacher {
 				'render_callback' => [ $this, 'render_contact_teacher_block' ],
 			]
 		);
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Arguments used for comparison.
+		if ( isset( $_GET['send'] ) && 'complete' === $_GET['send'] ) {
+			Sensei()->notices->add_notice( __( 'Your private message has been sent.', 'sensei-lms' ), 'tick', 'sensei-contact-teacher-confirm' );
+		}
 	}
 
 	/**
