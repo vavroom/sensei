@@ -1,5 +1,6 @@
-import { RichText, InnerBlocks } from '@wordpress/block-editor';
+import { InnerBlocks, RichText } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import { useBlockIndex } from '../../../shared/blocks/block-index';
 
 /**
  * Quiz question block editor.
@@ -12,10 +13,18 @@ export const EditQuestionBlock = ( props ) => {
 	const {
 		attributes: { title },
 		setAttributes,
+		clientId,
 	} = props;
 
+	const index = useBlockIndex( clientId );
+
 	return (
-		<div className="sensei-lms-question-block">
+		<div
+			className={ `sensei-lms-question-block ${
+				! title ? 'is-draft' : ''
+			}` }
+		>
+			<h2 className="sensei-lms-question-block__index">{ index + 1 }.</h2>
 			<RichText
 				className="sensei-lms-question-block__title"
 				tagName="h2"
