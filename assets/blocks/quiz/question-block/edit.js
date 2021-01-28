@@ -1,6 +1,7 @@
-import { RichText, InnerBlocks } from '@wordpress/block-editor';
+import { RichText, InnerBlocks, BlockControls } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 import types from '../answer-blocks';
+import { QuestionTypeToolbar } from './question-type-toolbar';
 
 /**
  * Quiz question block editor.
@@ -49,6 +50,16 @@ export const EditQuestionBlock = ( props ) => {
 					}
 				/>
 			) }
+			<BlockControls>
+				<>
+					<QuestionTypeToolbar
+						value={ type }
+						onSelect={ ( nextValue ) =>
+							setAttributes( { type: nextValue } )
+						}
+					/>
+				</>
+			</BlockControls>
 		</div>
 	);
 };
