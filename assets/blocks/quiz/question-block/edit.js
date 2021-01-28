@@ -1,5 +1,6 @@
 import { RichText, InnerBlocks } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
+import types from '../answer-blocks';
 
 /**
  * Quiz question block editor.
@@ -10,9 +11,11 @@ import { __ } from '@wordpress/i18n';
  */
 export const EditQuestionBlock = ( props ) => {
 	const {
-		attributes: { title },
+		attributes: { title, type, answer = {} },
 		setAttributes,
 	} = props;
+
+	const AnswerBlock = type && types[ type ];
 
 	return (
 		<div className="sensei-lms-question-block">
@@ -38,6 +41,14 @@ export const EditQuestionBlock = ( props ) => {
 					],
 				] }
 			/>
+			{ AnswerBlock?.edit && (
+				<AnswerBlock.edit
+					attributes={ answer }
+					setAttributes={ ( next ) =>
+						setAttributes( { answer: { ...answer, ...next } } )
+					}
+				/>
+			) }
 		</div>
 	);
 };
